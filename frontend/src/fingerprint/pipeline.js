@@ -43,7 +43,7 @@ export async function fingerprintAudioFile(file) {
     nFft: 2048,
     hop: 512,
   });
-  const landmark = landmarkHashFromMagnitudes(magnitudes);
+  const landmark = await landmarkHashFromMagnitudes(magnitudes);
   const chroma = chromaFingerprintFromMagnitudes(magnitudes, { sr, nFft });
   // chroma is { pooled: Float32Array(12), frames: Float32Array(12, T) flat }
   // Convert frames into the [12][T] shape the API expects (list of lists).
