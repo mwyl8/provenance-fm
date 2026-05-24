@@ -1,11 +1,28 @@
-.PHONY: install backend frontend dev test clean ingest watchdog
+.PHONY: install backend frontend dev test clean ingest watchdog doctor
 
-VENV ?= .venv
-PY   := $(VENV)/bin/python
-PIP  := $(VENV)/bin/pip
+# Override with: make install PYTHON=python3.12
+PYTHON ?= python3.12
+VENV   ?= .venv
+PY     := $(VENV)/bin/python
+PIP    := $(VENV)/bin/pip
+
+doctor:
+	@echo "Looking for compatible Python interpreters..."
+	@for v in python3.12 python3.11 python3.10; do \
+	  if command -v $$v >/dev/null 2>&1; then \
+	    echo "  ok   $$v -> $$($$v --version)"; \
+	  else \
+	    echo "  miss $$v (install via 'brew install $$(echo $$v | sed s/python/python@/)' or uv)"; \
+	  fi; \
+	done
+	@echo ""
+	@echo "Default python3 is $$(python3 --version 2>&1). torch/numpy don't ship wheels for 3.13+ yet."
+	@echo "Run with: make install PYTHON=python3.12"
 
 install:
-	python3 -m venv $(VENV)
+	@command -v $(PYTHON) >/dev/null 2>&1 || (echo "ERROR: $(PYTHON) not found — run 'make doctor' for help"; exit 1)
+	$(PYTHON) -m venv $(VENV)
+	$(PIP) install --upgrade pip
 	$(PIP) install -r backend/requirements.txt
 	cd frontend && npm install
 
