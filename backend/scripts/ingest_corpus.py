@@ -75,7 +75,7 @@ def main():
 
     ensure_dirs()
     root = Path(args.path)
-    exts = {".mp3", ".wav", ".flac", ".m4a", ".ogg"}
+    exts = {".mp3", ".wav", ".flac", ".m4a", ".ogg", ".aiff", ".aif", ".aifc", ".opus"}
     files = sorted(p for p in root.rglob("*") if p.suffix.lower() in exts)
     if args.limit:
         files = files[: args.limit]
