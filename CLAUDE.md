@@ -281,37 +281,4 @@ main file.
 
 ---
 
-## 12. Pitchfork context
-
-- Pitchfork Innovation is the studio. Two friends + the user; the user
-  is a new employee / applicant level role.
-- Studio tagline: *"Turning alternative datasets into shipped projects.
-  Our studio builds the tools that our intelligence layer identifies as
-  missing market links."*
-- Sibling projects:
-  - **Annotagent** — AI-assisted annotation of research papers
-  - **Zombieslayer** — adversarial robustness for datasets
-- Provenance.fm is the encryption / IP-defense play, but the brand is
-  agnostic enough to expand into voice cloning / images / code if the
-  music wedge stays narrow. (Tracked as future-direction options in
-  brainstorming notes; not committed.)
-
----
-
-## 13. User context (Will)
-
-- Entering undergrad at Columbia in the fall, intending CS / applied math.
-- Hours/week: 12 baseline, up to 20 if free time allows.
-- Piano performance background — domain expertise for the music wedge,
-  underused asset for the team.
-- Prior preprint: *Balancing Privacy and Efficiency: Music Information
-  Retrieval via Additive Homomorphic Encryption* (arxiv:2508.07044) with
-  Dongfang Zhao. provenance.fm extends that line.
-- Goal: resume-grade short paper + shippable product, both completed
-  before / during early Columbia. Not aiming at a top-tier theory venue.
-- Comfortable with iteration; not allergic to honest scope. Push back
-  when an idea is weak (he did this on Atomic Reblock and was right).
-
----
-
-*Last updated: 2026-05-24. Update when L-decisions or pending Q's change.*
+*Last updated: 2026-06-17. Update when L-decisions or pending Q's change.*
