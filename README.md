@@ -83,4 +83,3 @@ docs/
   pitches.md               Artist pitch + investor-DD pitch
 ```
 
-A [Pitchfork Innovation](https://usepitchfork.com) studio project.
