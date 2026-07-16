@@ -57,25 +57,35 @@ npm run dev
 Open <http://localhost:5173>.
 
 ## Layout
-
 ```
-backend/provenance/
-  app.py                   FastAPI service
-  fingerprint/
-    mert.py                MERT embedding (server-side)
-    landmark.py            Shazam-style landmark hash
-    chroma.py              Chromagram feature
-  ensemble.py              Multi-fingerprint match aggregation
-  matching.py              Fuzzy matching + confidence tiers
-  receipts.py              Signed audit transcripts
-  scraper.py               Suno / Udio watchdog scraper
-  index.py                 Vector index (FAISS / pgvector)
+backend/
+  requirements.txt
+  provenance/
+    app.py                 FastAPI service (HTTP endpoints; wires the modules together)
+    config.py              settings: sample rate, confidence thresholds, paths
+    storage.py             persistence — SQLite (artists, tracks, corpus, audit log)
+    ensemble.py            multi-fingerprint aggregation (median + "2-of-3 must agree")
+    matching.py            fuzzy matching + confidence tiers (linear scan over corpus)
+    receipts.py            signed audit transcripts (Ed25519 + corpus Merkle root)
+    scraper.py             Suno / Udio watchdog scraper (yt-dlp; v1)
+    fingerprint/
+      mert.py              MERT embedding (server-side): style/vibe signal
+      landmark.py          Shazam-style landmark hash: exact-recording identity
+      chroma.py            chromagram: harmony/melody (12 pitch classes)
+  scripts/
+    ingest_corpus.py       bulk-fingerprint a corpus of AI tracks
+    run_watchdog.py        run the scraper/watchdog loop
+  tests/
+    test_matching.py       unit tests for the matcher
 frontend/src/
   pages/Landing.jsx        Artist-hook landing page
-  pages/Artist.jsx         Catalog registration
+  pages/Artist.jsx         Catalog registration (client-side fingerprinting)
   pages/Investigate.jsx    AI-track lookup
   pages/Receipt.jsx        Signed audit receipts
-  fingerprint/             Browser-side landmark + chroma (Web Audio)
+  pages/Labels.jsx         Record-label customer view
+  pages/Funds.jsx          Music-fund customer view
+  components/              AudioDropzone, ConfidenceBadge
+  fingerprint/             Browser-side landmark + chroma (Web Audio; audio never leaves device)
 docs/
   architecture.md
   paper-outline.md
@@ -83,3 +93,7 @@ docs/
   pitches.md               Artist pitch + investor-DD pitch
 ```
 
+> **Storage / scale note:** v1 stores fingerprints in SQLite and matches with a linear
+> scan, which is fine at demo scale. The production path is a vector index
+> (FAISS or pgvector) as a candidate-generation stage in front of the ensemble —
+> planned, not yet implemented.
